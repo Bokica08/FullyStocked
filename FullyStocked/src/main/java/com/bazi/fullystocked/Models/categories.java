@@ -15,7 +15,7 @@ import java.util.List;
 public class categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryid;
+    private Integer categoryid;
     @Column(nullable = false)
     @NotNull(message = "Category must have name")
     @NotEmpty(message = "Category must have name")

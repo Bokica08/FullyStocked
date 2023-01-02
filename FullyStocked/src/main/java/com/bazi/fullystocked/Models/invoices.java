@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class invoices {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long invoiceid;
+    private Integer invoiceid;
     @Column(nullable = false)
     @NotNull(message = "Invoice must have customer name")
     @NotEmpty(message = "Invoice must have customer name")
@@ -29,7 +29,6 @@ public class invoices {
     private String street;
     @Column(nullable = false)
     @NotNull(message = "Invoice must have customer street number")
-    @NotEmpty(message = "Invoice must have customer street number")
     private int streetnumber;
     @Column(nullable = false)
     @NotNull(message = "Invoice must have customer city")
@@ -37,7 +36,6 @@ public class invoices {
     private String city;
     @Column(nullable = false)
     @NotNull(message = "Invoice must have creation date")
-    @NotEmpty(message = "Invoice must have creation date")
     private LocalDateTime datecreate;
     @ManyToOne
     @JoinColumn(name = "workeruserid")

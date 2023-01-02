@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class locations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long locationid;
+    private Integer locationid;
     @Column(nullable = false)
     @NotNull(message = "Location must have name")
     @NotEmpty(message = "Location must have name")
@@ -28,14 +28,13 @@ public class locations {
     private String street;
     @Column(nullable = false)
     @NotNull(message = "Location must have street number")
-    @NotEmpty(message = "Location must have street number")
-    private String streetnumber;
+    private Integer streetnumber;
     @Column(nullable = false)
     @NotNull(message = "Location must have city")
     @NotEmpty(message = "Location must have city")
     private String city;
 
-    public locations(String locationname, String phone, String street, String streetnumber, String city) {
+    public locations(String locationname, String phone, String street, Integer streetnumber, String city) {
         this.locationname = locationname;
         this.phone = phone;
         this.street = street;

@@ -16,14 +16,13 @@ import java.util.List;
 public class questions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long questionid;
+    private Integer questionid;
     @Column(nullable = false)
     @NotNull(message = "Question must have content")
     @NotEmpty(message = "Question must have content")
     private String questiontext;
     @Column(nullable = false)
     @NotNull(message = "Question must have creation date")
-    @NotEmpty(message = "Question must have creation date")
     private LocalDateTime datecreated;
     @ManyToOne
     @JoinColumn(name = "workeruserid")

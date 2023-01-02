@@ -15,15 +15,11 @@ import javax.validation.constraints.NotNull;
 public class orderedarticles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long oarticleid;
-    @Column(nullable = false)
-    @NotNull(message = "Ordered Article must have price")
-    @NotEmpty(message = "Ordered Article must have price")
+    private Integer oarticleid;
     @Min(0)
     private int price;
     @Column(nullable = false)
     @NotNull(message = "Ordered Article must have quantity")
-    @NotEmpty(message = "Ordered Article must have quantity")
     @Min(0)
     private int quantity;
     @Column(nullable = false)
@@ -31,7 +27,7 @@ public class orderedarticles {
     @NotEmpty(message = "Ordered Article must have status")
     private String articlestatus;
     @ManyToOne
-    @JoinColumn(name = "orederid")
+    @JoinColumn(name = "orderid")
     private orders order;
     @ManyToOne
     @JoinColumn(name = "locationid")

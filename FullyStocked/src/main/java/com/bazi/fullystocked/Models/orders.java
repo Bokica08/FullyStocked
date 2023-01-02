@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orederid;
+    private Integer orderid;
     @Column(nullable = false)
     @NotNull(message = "Order must have status")
     @NotEmpty(message = "Order must have status")
@@ -23,7 +23,6 @@ public class orders {
     private String managerremark;
     @Column(nullable = false)
     @NotNull(message = "Order must have creation date")
-    @NotEmpty(message = "Order must have creation date")
     private LocalDateTime datecreated;
     private LocalDateTime dateapproved;
     @Column(nullable = false)

@@ -14,13 +14,13 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 public class articles {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long articleid;
-        @Column(nullable = false)
-        @NotNull(message = "Article must have description")
-        @NotEmpty(message = "Article must have description")
-        private String description;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer articleid;
+    @Column(nullable = false)
+    @NotNull(message = "Article must have description")
+    @NotEmpty(message = "Article must have description")
+    private String description;
     @Column(nullable = false)
     @NotNull(message = "Article must have name")
     @NotEmpty(message = "Article must have name")
@@ -28,7 +28,6 @@ public class articles {
     private String imageurl;
     @Column(nullable = false)
     @NotNull(message = "Article must have max quantity")
-    @NotEmpty(message = "Article must have max quantity")
     private int maxquantityperlocation;
     @ManyToMany
     @JoinTable(name = "article_belongs_to_category",

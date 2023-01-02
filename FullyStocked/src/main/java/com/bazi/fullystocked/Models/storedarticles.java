@@ -16,10 +16,9 @@ import java.util.List;
 public class storedarticles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sarticleid;
+    private Integer sarticleid;
     @Column(nullable = false)
     @NotNull(message = "Stored Article must have quantity")
-    @NotEmpty(message = "Stored Article must have quantity")
     @Min(0)
     private int quantity;
     @ManyToOne

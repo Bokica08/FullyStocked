@@ -29,8 +29,7 @@ public class suppliers extends User{
     private String street;
     @Column(nullable = false)
     @NotNull(message = "Supplier must have street number")
-    @NotEmpty(message = "Supplier must have street number")
-    private int sttreetnumber;
+    private int streetnumber;
     @Column(nullable = false)
     @NotNull(message = "Supplier must have street city")
     @NotEmpty(message = "Supplier must have street city")
@@ -47,7 +46,7 @@ public class suppliers extends User{
         this.supplierinfo = supplierinfo;
         this.phone = phone;
         this.street = street;
-        this.sttreetnumber = sttreetnumber;
+        this.streetnumber = sttreetnumber;
         this.city = city;
     }
 }

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userid;
+    private Integer userid;
     @Column(nullable = false)
     @NotNull(message = "The user must have an first name")
     @NotEmpty(message = "The user must have an first name")
@@ -35,14 +35,14 @@ public class User{
     @Column(nullable = false)
     @NotNull(message = "The user must have an password")
     @NotEmpty(message = "The user must have an password")
-    private String password;
+    private String userpassword;
 
     public User(String firstname, String lastname, String username, String email, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
         this.email = email;
-        this.password = password;
+        this.userpassword = password;
     }
 
 }

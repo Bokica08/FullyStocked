@@ -14,15 +14,13 @@ import javax.validation.constraints.NotNull;
 public class invoicedarticles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long iarticleid;
+    private Integer iarticleid;
     @Column(nullable = false)
     @NotNull(message = "Invoiced Article must have price")
-    @NotEmpty(message = "Invoiced Article must have price")
     @Min(0)
     private int price;
     @Column(nullable = false)
     @NotNull(message = "Invoiced Article must have quantity")
-    @NotEmpty(message = "Invoiced Article must have quantity")
     @Min(0)
     private int quantity;
     @ManyToOne
