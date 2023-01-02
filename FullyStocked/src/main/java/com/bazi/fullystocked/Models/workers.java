@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -13,12 +15,12 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 public class workers extends User{
-    @Column(nullable = false)
-    @NotNull(message = "The worker must have location")
-    private int locationid;
+    @ManyToOne
+    @JoinColumn(name = "locationid")
+    private locations location;
 
-    public workers(String firstname, String lastname, String username, String email, String password, int locationid) {
+    public workers(String firstname, String lastname, String username, String email, String password, locations location) {
         super(firstname, lastname, username, email, password);
-        this.locationid = locationid;
+        this.location = location;
     }
 }
