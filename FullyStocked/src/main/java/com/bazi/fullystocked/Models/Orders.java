@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.*;
 
 @Data
 @Entity
@@ -35,6 +36,8 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "supplieruserid")
     private Suppliers supplier;
+    @OneToMany(mappedBy="order")
+    private List<OrderedArticles> articlesList=new ArrayList<>();
 
     public Orders(OrderPriority priority, Managers manager, Suppliers supplier) {
         this.status = OrderStatus.CREATED;

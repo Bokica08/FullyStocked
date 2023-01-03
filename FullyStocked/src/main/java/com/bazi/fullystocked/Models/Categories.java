@@ -26,7 +26,7 @@ public class Categories {
     private String description;
     @ManyToMany(mappedBy = "categoryList")
     private List<Articles> articlesList=new ArrayList<>();
-    @ManyToMany(mappedBy = "categoryList2")
+    @ManyToMany(mappedBy = "categoryList")
     private List<Suppliers> suppliersList=new ArrayList<>();
 
 

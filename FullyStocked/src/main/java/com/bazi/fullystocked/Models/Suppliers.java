@@ -39,7 +39,7 @@ public class Suppliers extends User{
             joinColumns = @JoinColumn(name = "userid"),
             inverseJoinColumns = @JoinColumn(name = "categoryid")
     )
-    private List<Categories> categoryList2=new ArrayList<>();
+    private List<Categories> categoryList=new ArrayList<>();
 
     public Suppliers(String firstname, String lastname, String username, String email, String password, String supplierinfo, String phone, String street, int sttreetnumber, String city) {
         super(firstname, lastname, username, email, password);

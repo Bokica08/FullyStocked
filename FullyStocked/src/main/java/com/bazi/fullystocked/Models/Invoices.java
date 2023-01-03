@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.*;
 
 @Data
 @Entity
@@ -26,6 +27,8 @@ public class Invoices {
     @ManyToOne
     @JoinColumn(name = "workeruserid")
     private Workers worker;
+    @OneToMany(mappedBy = "invoice")
+    private List<InvoicedArticles>articlesList=new ArrayList<>();
 
     public Invoices(Workers worker) {
 
