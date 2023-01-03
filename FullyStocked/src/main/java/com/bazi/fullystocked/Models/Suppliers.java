@@ -14,7 +14,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class suppliers extends User{
+public class Suppliers extends User{
     @Column(nullable = false)
     @NotNull(message = "Supplier must have supplierInfo")
     @NotEmpty(message = "Supplier must have supplierInfo")
@@ -39,9 +39,9 @@ public class suppliers extends User{
             joinColumns = @JoinColumn(name = "userid"),
             inverseJoinColumns = @JoinColumn(name = "categoryid")
     )
-    private List<categories> categoryList2=new ArrayList<>();
+    private List<Categories> categoryList2=new ArrayList<>();
 
-    public suppliers(String firstname, String lastname, String username, String email, String password, String supplierinfo, String phone, String street, int sttreetnumber, String city) {
+    public Suppliers(String firstname, String lastname, String username, String email, String password, String supplierinfo, String phone, String street, int sttreetnumber, String city) {
         super(firstname, lastname, username, email, password);
         this.supplierinfo = supplierinfo;
         this.phone = phone;

@@ -10,8 +10,8 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class managers extends User{
-    public managers(String firstname, String lastname, String username, String email, String password) {
+public class Managers extends User{
+    public Managers(String firstname, String lastname, String username, String email, String password) {
         super(firstname, lastname, username, email, password);
     }
 }

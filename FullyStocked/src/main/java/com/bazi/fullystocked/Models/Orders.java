@@ -1,5 +1,7 @@
 package com.bazi.fullystocked.Models;
 
+import com.bazi.fullystocked.Models.Enumerations.OrderPriority;
+import com.bazi.fullystocked.Models.Enumerations.OrderStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,14 +13,13 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @NoArgsConstructor
-public class orders {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderid;
     @Column(nullable = false)
-    @NotNull(message = "Order must have status")
-    @NotEmpty(message = "Order must have status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
     private String supplierremark;
     private String managerremark;
     @Column(nullable = false)
@@ -26,23 +27,18 @@ public class orders {
     private LocalDateTime datecreated;
     private LocalDateTime dateapproved;
     @Column(nullable = false)
-    @NotNull(message = "Order must have priority")
-    @NotEmpty(message = "Order must have priority")
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private OrderPriority priority;
     @ManyToOne
     @JoinColumn(name = "manageruserid")
-    private managers manager;
+    private Managers manager;
     @ManyToOne
     @JoinColumn(name = "supplieruserid")
-    private suppliers supplier;
+    private Suppliers supplier;
 
-    public orders(String status, String supplierremark, String managerremark,
-                  LocalDateTime dateapproved, String priority, managers manager, suppliers supplier) {
-        this.status = status;
-        this.supplierremark = supplierremark;
-        this.managerremark = managerremark;
+    public Orders(OrderPriority priority, Managers manager, Suppliers supplier) {
+        this.status = OrderStatus.CREATED;
         this.datecreated = LocalDateTime.now();
-        this.dateapproved = dateapproved;
         this.priority = priority;
         this.manager = manager;
         this.supplier = supplier;

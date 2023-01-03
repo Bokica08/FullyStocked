@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,8 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
-public class storedarticles {
+@Table(name="storedarticles")
+public class StoredArticles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sarticleid;
@@ -23,18 +23,18 @@ public class storedarticles {
     private int quantity;
     @ManyToOne
     @JoinColumn(name = "locationid")
-    private locations locations;
+    private Locations locations;
     @ManyToOne
     @JoinColumn(name = "articleid")
-    private articles article;
+    private Articles article;
     @ManyToMany
     @JoinTable(name = "question_availability_for_storedarticle",
             joinColumns = @JoinColumn(name = "sarticleid"),
             inverseJoinColumns = @JoinColumn(name = "questionid")
     )
-    private List<questions> questionsList=new ArrayList<>();
+    private List<Questions> questionsList=new ArrayList<>();
 
-    public storedarticles(int quantity, locations locations, articles article) {
+    public StoredArticles(int quantity, Locations locations, Articles article) {
         this.quantity = quantity;
         this.locations = locations;
         this.article = article;

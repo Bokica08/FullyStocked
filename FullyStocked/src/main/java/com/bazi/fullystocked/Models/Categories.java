@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
-public class categories {
+public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer categoryid;
@@ -25,12 +25,12 @@ public class categories {
     @NotEmpty(message = "Category must have description")
     private String description;
     @ManyToMany(mappedBy = "categoryList")
-    private List<articles> articlesList=new ArrayList<>();
+    private List<Articles> articlesList=new ArrayList<>();
     @ManyToMany(mappedBy = "categoryList2")
-    private List<suppliers> suppliersList=new ArrayList<>();
+    private List<Suppliers> suppliersList=new ArrayList<>();
 
 
-    public categories(String categoryname, String description) {
+    public Categories(String categoryname, String description) {
         this.categoryname = categoryname;
         this.description = description;
     }

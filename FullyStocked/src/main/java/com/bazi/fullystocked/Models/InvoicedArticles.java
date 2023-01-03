@@ -5,13 +5,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class invoicedarticles {
+@Table(name="invoicedarticles")
+public class InvoicedArticles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer iarticleid;
@@ -25,12 +25,12 @@ public class invoicedarticles {
     private int quantity;
     @ManyToOne
     @JoinColumn(name = "invoiceid")
-    private invoices invoice;
+    private Invoices invoice;
     @ManyToOne
     @JoinColumn(name = "articleid")
-    private articles article;
+    private Articles article;
 
-    public invoicedarticles(int price, int quantity, invoices invoice, articles article) {
+    public InvoicedArticles(int price, int quantity, Invoices invoice, Articles article) {
         this.price = price;
         this.quantity = quantity;
         this.invoice = invoice;

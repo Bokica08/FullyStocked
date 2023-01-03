@@ -15,7 +15,7 @@ public class AnswerId implements Serializable {
     private Integer answerid;
     @ManyToOne
     @JoinColumn(name="questionid")
-    private questions question;
+    private Questions question;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,8 +1,8 @@
 package com.bazi.fullystocked.Models;
 
+import com.bazi.fullystocked.Models.Enumerations.ArticleStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -12,7 +12,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 @NoArgsConstructor
-public class orderedarticles {
+@Table(name="orderedarticles")
+public class OrderedArticles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer oarticleid;
@@ -23,23 +24,21 @@ public class orderedarticles {
     @Min(0)
     private int quantity;
     @Column(nullable = false)
-    @NotNull(message = "Ordered Article must have status")
-    @NotEmpty(message = "Ordered Article must have status")
-    private String articlestatus;
+    @Enumerated(EnumType.STRING)
+    private ArticleStatus articlestatus;
     @ManyToOne
     @JoinColumn(name = "orderid")
-    private orders order;
+    private Orders order;
     @ManyToOne
     @JoinColumn(name = "locationid")
-    private locations location;
+    private Locations location;
     @ManyToOne
     @JoinColumn(name = "articleid")
-    private articles article;
+    private Articles article;
 
-    public orderedarticles(int price, int quantity, String articlestatus, orders order, locations location, articles article) {
-        this.price = price;
+    public OrderedArticles(int quantity, Orders order, Locations location, Articles article) {
         this.quantity = quantity;
-        this.articlestatus = articlestatus;
+        this.articlestatus = ArticleStatus.ORDERED;
         this.order = order;
         this.location = location;
         this.article = article;

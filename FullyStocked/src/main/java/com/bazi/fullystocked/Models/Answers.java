@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @Data
-public class answers {
+public class Answers {
     @EmbeddedId
     private AnswerId answerId;
     private LocalDateTime datecreated;
@@ -21,7 +21,7 @@ public class answers {
     @Column(nullable = false)
     private String answertext;
 
-    public answers(String answertext) {
+    public Answers(String answertext) {
         this.datecreated = LocalDateTime.now();
         this.answertext = answertext;
     }

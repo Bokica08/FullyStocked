@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 @NoArgsConstructor
-public class locations {
+public class Locations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer locationid;
@@ -34,7 +34,7 @@ public class locations {
     @NotEmpty(message = "Location must have city")
     private String city;
 
-    public locations(String locationname, String phone, String street, Integer streetnumber, String city) {
+    public Locations(String locationname, String phone, String street, Integer streetnumber, String city) {
         this.locationname = locationname;
         this.phone = phone;
         this.street = street;

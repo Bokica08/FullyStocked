@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
-public class questions {
+public class Questions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer questionid;
@@ -26,15 +26,15 @@ public class questions {
     private LocalDateTime datecreated;
     @ManyToOne
     @JoinColumn(name = "workeruserid")
-    private workers worker;
+    private Workers worker;
     @ManyToOne
     @JoinColumn(name = "manageruserid")
-    private managers manager;
+    private Managers manager;
     @ManyToMany(mappedBy = "questionsList")
-    private List<storedarticles> storedarticlesList=new ArrayList<>();
+    private List<StoredArticles> storedarticlesList=new ArrayList<>();
 
 
-    public questions(String questiontext, workers worker, managers manager) {
+    public Questions(String questiontext, Workers worker, Managers manager) {
         this.questiontext = questiontext;
         this.datecreated = LocalDateTime.now();
         this.worker = worker;
