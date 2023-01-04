@@ -21,8 +21,9 @@ public class Answers {
     @Column(nullable = false)
     private String answertext;
 
-    public Answers(String answertext) {
+    public Answers(Questions question, String answertext) {
         this.datecreated = LocalDateTime.now();
         this.answertext = answertext;
+        answerId.setQuestion(question);
     }
 }

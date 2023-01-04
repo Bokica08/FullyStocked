@@ -43,5 +43,6 @@ public class Invoices {
         this.streetnumber = streetnumber;
         this.city = city;
         this.worker = worker;
+        this.datecreate=LocalDateTime.now();
     }
 }

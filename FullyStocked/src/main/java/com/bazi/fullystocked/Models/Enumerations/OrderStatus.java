@@ -6,7 +6,8 @@ public enum OrderStatus {
     CANCELED("Canceled"),
     IN_PROGRESS("In progress"),
     DELIVERED("Delivered"),
-    REJECTED("Rejected");
+    REJECTED("Rejected"),
+    PROCESSED("Processed");
     private String name;
 
     OrderStatus(String s) {

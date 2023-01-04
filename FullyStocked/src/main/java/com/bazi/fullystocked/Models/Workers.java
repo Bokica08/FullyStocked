@@ -21,4 +21,7 @@ public class Workers extends User{
         super(firstname, lastname, username, email, password);
         this.location = location;
     }
+    public Workers(String firstname, String lastname, String username, String email, String password) {
+        super(firstname, lastname, username, email, password);
+    }
 }

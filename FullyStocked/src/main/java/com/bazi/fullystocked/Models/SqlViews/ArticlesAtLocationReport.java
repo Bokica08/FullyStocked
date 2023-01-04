@@ -8,15 +8,16 @@ import javax.persistence.Table;
 
 @Entity
 @Immutable
-@Table(name = "articles_report")
-public class ArticlesReport {
+@Table(name = "articles_at_location")
+public class ArticlesAtLocationReport {
     @Id
     private Integer sarticleid;
-    private Integer articleid;
-    private String articlename;
-    private String description;
-    private String imageurl;
-    private int quantity;
-    private String locationname;
     private Integer locationid;
+    private Integer articleid;
+    private String description;
+    private String articlename;
+    private String imageurl;
+    private int maxquantityperlocation;
+    private int quantity;
+
 }
