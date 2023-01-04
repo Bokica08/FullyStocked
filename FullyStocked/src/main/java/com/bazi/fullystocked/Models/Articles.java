@@ -40,4 +40,11 @@ public class Articles {
         this.articlename = articlename;
         this.maxquantityperlocation = maxquantityperlocation;
     }
+
+    public Articles(String description, String articlename, String imageurl, int maxquantityperlocation) {
+        this.description = description;
+        this.articlename = articlename;
+        this.imageurl = imageurl;
+        this.maxquantityperlocation = maxquantityperlocation;
+    }
 }
