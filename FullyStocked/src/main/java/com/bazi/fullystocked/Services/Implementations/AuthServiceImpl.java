@@ -13,6 +13,7 @@ import com.bazi.fullystocked.Repositories.SuppliersRepository;
 import com.bazi.fullystocked.Repositories.UsersRepository;
 import com.bazi.fullystocked.Repositories.WorkersRepository;
 import com.bazi.fullystocked.Services.AuthService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
     private final ManagersRepository managersRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthServiceImpl(UsersRepository usersRepository, WorkersRepository workersRepository, SuppliersRepository suppliersRepository, ManagersRepository managersRepository, PasswordEncoder passwordEncoder) {
+    public AuthServiceImpl( UsersRepository usersRepository, WorkersRepository workersRepository, SuppliersRepository suppliersRepository, ManagersRepository managersRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
         this.workersRepository = workersRepository;
         this.suppliersRepository = suppliersRepository;
@@ -34,16 +35,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public User login(String username, String password) {
-        if (username==null || username.isEmpty() || password==null || password.isEmpty()) {
+        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             throw new InvalidArgumentsException();
         }
-        User user=usersRepository.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
-        if(passwordEncoder.matches(password, user.getUserpassword()))
-        {
+        User user = usersRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        if (passwordEncoder.matches(password, user.getUserpassword())) {
             return user;
-        }
-        else
-        {
+        } else {
             throw new InvalidUserCredentialsException();
         }
     }
@@ -61,30 +59,31 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void RegParamsCheck(String firstname, String lastname, String username, String email, String password) {
-        if(firstname==null || firstname.isEmpty() || lastname==null || lastname.isEmpty() || username==null || username.isEmpty() || email==null || email.isEmpty() || password==null || password.isEmpty())
-        {
+        if (firstname == null || firstname.isEmpty() || lastname == null || lastname.isEmpty() || username == null || username.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty()) {
             throw new InvalidArgumentsException();
         }
-        if(usersRepository.findByUsername(username).isPresent())
-        {
+        if (usersRepository.findByUsername(username).isPresent()) {
             throw new UsernameAlreadyExistsException(username);
         }
     }
 
     @Override
     public Suppliers registerSupplier(String firstname, String lastname, String username, String email, String password, String supplierInfo, String phone, String street, int streetNumber, String city) {
-        if(firstname==null || firstname.isEmpty() || lastname==null || lastname.isEmpty() || username==null || username.isEmpty() || email==null || email.isEmpty() || password==null || password.isEmpty())
-        {
+        if (firstname == null || firstname.isEmpty() || lastname == null || lastname.isEmpty() || username == null || username.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty()) {
             throw new InvalidArgumentsException();
         }
-        if(supplierInfo==null || supplierInfo.isEmpty() || phone==null || phone.isEmpty() || street==null || street.isEmpty() || city==null || city.isEmpty())
-        {
+        if (supplierInfo == null || supplierInfo.isEmpty() || phone == null || phone.isEmpty() || street == null || street.isEmpty() || city == null || city.isEmpty()) {
             throw new InvalidArgumentsException();
         }
-        if(usersRepository.findByUsername(username).isPresent())
-        {
+        if (usersRepository.findByUsername(username).isPresent()) {
             throw new UsernameAlreadyExistsException(username);
         }
         return suppliersRepository.save(new Suppliers(firstname, lastname, username, email, passwordEncoder.encode(password), supplierInfo, phone, street, streetNumber, city));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UserNotFoundException {
+        return usersRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+
     }
 }
