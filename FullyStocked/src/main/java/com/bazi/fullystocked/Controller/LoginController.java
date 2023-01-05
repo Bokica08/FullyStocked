@@ -1,7 +1,9 @@
 package com.bazi.fullystocked.Controller;
 
 import com.bazi.fullystocked.Models.Exceptions.InvalidUserCredentialsException;
+import com.bazi.fullystocked.Models.Managers;
 import com.bazi.fullystocked.Models.User;
+import com.bazi.fullystocked.Models.Workers;
 import com.bazi.fullystocked.Services.AuthService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,10 +34,19 @@ public class LoginController {
     @PostMapping
     public String login(HttpServletRequest request, Model model) {
         User user = null;
-        try{
+        try {
             user = this.authService.login(request.getParameter("username"),
                     request.getParameter("password"));
-            request.getSession().setAttribute("user", user);
+            if (user instanceof Workers) {
+                Workers w= (Workers) user;
+                request.getSession().setAttribute("user", w);
+                request.getSession().setAttribute("location",w.getLocation().getLocationname()+" "+w.getLocation().getCity());
+                return "redirect:/homeWorker";
+            } else if (user instanceof Managers) {
+                Managers m= (Managers) user;
+                request.getSession().setAttribute("user", m);
+                return "redirect:/homeManager";
+            }
             return "redirect:/home";
         }
         catch (InvalidUserCredentialsException exception) {

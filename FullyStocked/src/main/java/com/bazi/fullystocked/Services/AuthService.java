@@ -4,9 +4,8 @@ import com.bazi.fullystocked.Models.Managers;
 import com.bazi.fullystocked.Models.Suppliers;
 import com.bazi.fullystocked.Models.User;
 import com.bazi.fullystocked.Models.Workers;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface AuthService extends UserDetailsService {
+public interface AuthService {
     User login(String username, String password);
     Workers registerWorker(String firstname, String lastname, String username, String email, String password);
     Managers registerManager(String firstname, String lastname, String username, String email, String password);

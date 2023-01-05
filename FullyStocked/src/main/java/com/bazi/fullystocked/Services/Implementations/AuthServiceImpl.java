@@ -13,7 +13,6 @@ import com.bazi.fullystocked.Repositories.SuppliersRepository;
 import com.bazi.fullystocked.Repositories.UsersRepository;
 import com.bazi.fullystocked.Repositories.WorkersRepository;
 import com.bazi.fullystocked.Services.AuthService;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -81,9 +80,4 @@ public class AuthServiceImpl implements AuthService {
         return suppliersRepository.save(new Suppliers(firstname, lastname, username, email, passwordEncoder.encode(password), supplierInfo, phone, street, streetNumber, city));
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UserNotFoundException {
-        return usersRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
-
-    }
 }

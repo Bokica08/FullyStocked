@@ -1,0 +1,55 @@
+<body xmlns:sec="http://www.w3.org/1999/xhtml">
+<header xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">FULLYSTOCKED</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a class="btn btn-light btn-sm ml-3" href="/login">
+                            <i class="fa fa-shopping-cart"></i> Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="jumbotron">
+        <h1 class="text-center">FullyStocked</h1>
+        <hr />
+        <p class="lead text-center">Добредојдовте на FullyStocked</p>
+        <p class="lead text-center">Доколку немате профил</p>
+        <div class="col text-center">
+            <a class="btn btn btn-primary" href="/register">Регистрирај се</a>
+        </div>
+        <p class="lead text-center">Доколку имате профил</p>
+        <div class="col text-center">
+            <a class="btn btn btn-primary" href="/login">Најави се</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <h2>За апликацијата</h2>
+            <p>
+                This application will enable management, searching, review and assignment of tasks in an organization and will aim to facilitate all concerned and responsible employees in working with a large number of tasks...
+            </p>
+        </div>
+        <div class="col-md-6 text-center">
+            <h2>За развивачите</h2>
+            <p>Learn more about the developer of the application</p>
+        </div>
+    </div>
+</main>
+</body>
