@@ -2,6 +2,7 @@ package com.bazi.fullystocked.Controller;
 
 import com.bazi.fullystocked.Models.Exceptions.InvalidUserCredentialsException;
 import com.bazi.fullystocked.Models.Managers;
+import com.bazi.fullystocked.Models.Suppliers;
 import com.bazi.fullystocked.Models.User;
 import com.bazi.fullystocked.Models.Workers;
 import com.bazi.fullystocked.Services.AuthService;
@@ -46,6 +47,15 @@ public class LoginController {
                 Managers m= (Managers) user;
                 request.getSession().setAttribute("user", m);
                 return "redirect:/homeManager";
+            }
+            else if(user instanceof Suppliers)
+            {
+                Suppliers s= (Suppliers) user;
+                request.getSession().setAttribute("user", s);
+                request.getSession().setAttribute("info",s.getSupplierinfo());
+                request.getSession().setAttribute("number",s.getPhone());
+                request.getSession().setAttribute("location",s.getStreet()+" бр."+ s.getStreetnumber()+", "+s.getCity());
+                return "redirect:/homeSupplier";
             }
             return "redirect:/home";
         }
