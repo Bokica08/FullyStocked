@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping(value ="/homeWorker")
+@RequestMapping(value ="/worker")
 public class WorkerController {
     @GetMapping
     public String getWorkerPage()

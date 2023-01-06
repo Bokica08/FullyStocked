@@ -42,11 +42,11 @@ public class LoginController {
                 Workers w= (Workers) user;
                 request.getSession().setAttribute("user", w);
                 request.getSession().setAttribute("location",w.getLocation().getLocationname()+" "+w.getLocation().getCity());
-                return "redirect:/homeWorker";
+                return "redirect:/worker";
             } else if (user instanceof Managers) {
                 Managers m= (Managers) user;
                 request.getSession().setAttribute("user", m);
-                return "redirect:/homeManager";
+                return "redirect:/manager";
             }
             else if(user instanceof Suppliers)
             {
@@ -55,7 +55,7 @@ public class LoginController {
                 request.getSession().setAttribute("info",s.getSupplierinfo());
                 request.getSession().setAttribute("number",s.getPhone());
                 request.getSession().setAttribute("location",s.getStreet()+" бр."+ s.getStreetnumber()+", "+s.getCity());
-                return "redirect:/homeSupplier";
+                return "redirect:/supplier";
             }
             return "redirect:/home";
         }
