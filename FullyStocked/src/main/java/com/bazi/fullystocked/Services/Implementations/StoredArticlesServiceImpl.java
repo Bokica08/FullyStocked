@@ -61,4 +61,8 @@ public class StoredArticlesServiceImpl implements StoredArticlesService {
     public List<ArticlesReport> findByLocation(Integer locationId) {
         return articlesReportRepository.findAllByLocationid(locationId);
     }
+    public Optional<ArticlesReport> findById(Integer id)
+    {
+        return articlesReportRepository.findById(id);
+    }
 }

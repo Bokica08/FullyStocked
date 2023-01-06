@@ -11,4 +11,6 @@ public interface StoredArticlesService {
     List<SupplierSuppliesArticleReport> findAllBySupplier(Integer supplierId);
     Optional<StoredArticles> updateFromOrder(Integer oarticleid);
     List<ArticlesReport> findByLocation(Integer locationId);
+    Optional<ArticlesReport> findById(Integer id);
+
 }

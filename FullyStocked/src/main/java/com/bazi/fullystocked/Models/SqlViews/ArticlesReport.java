@@ -19,4 +19,36 @@ public class ArticlesReport {
     private int quantity;
     private String locationname;
     private Integer locationid;
+
+    public Integer getSarticleid() {
+        return sarticleid;
+    }
+
+    public Integer getArticleid() {
+        return articleid;
+    }
+
+    public String getArticlename() {
+        return articlename;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImageurl() {
+        return imageurl;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public String getLocationname() {
+        return locationname;
+    }
+
+    public Integer getLocationid() {
+        return locationid;
+    }
 }

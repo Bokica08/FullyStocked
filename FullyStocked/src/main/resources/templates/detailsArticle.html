@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <head>
     <meta charset="UTF-8">
-    <title>Worker</title>
+    <title>Details</title>
 </head>
-
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container">
@@ -19,7 +18,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
       <ul class="navbar-nav m-auto">
         <li class="nav-item m-auto">
-          <a class="nav-link active" href="/worker/articles">Преглед на магацинот</a>
+          <a class="nav-link active" href="#">Преглед на магацинот</a>
         </li>
         <li class="nav-item m-auto">
           <a class="nav-link active" href="#">Постави прашање</a>
@@ -43,28 +42,32 @@
     </div>
   </div>
 </nav>
-</header>
-<div class="jumbotron">
-  <h1 class="text-center">FullyStocked</h1>
-  <hr />
-  <h2 class="lead text-center">Добредојдовте на FullyStocked</h2>
-  <h3 class="lead text-center"><b>Информации за магационерот</b></h3>
-<p class="lead text-center font-weight-bold">Име: <span th:text="${session.user.getFirstname()}"></span></p>
-  <p class="lead text-center font-weight-bold">Презиме: <span th:text="${session.user.getLastname()}"></span></p>
-  <p class="lead text-center font-weight-bold">Локација: <span th:text="${session.location}"></span></p>
-</div>
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="project-info-box mt-0">
+        <h5 th:text="${article.getArticlename()}"></h5>
+        <p class="mb-0" th:text="${article.getDescription()}"></p>
+        <hr>
+      </div><!-- / project-info-box -->
 
-<div class="row">
-  <div class="col-md-6 text-center">
-    <h2>За апликацијата</h2>
-    <p>
-      This application will enable management, searching, review and assignment of tasks in an organization and will aim to facilitate all concerned and responsible employees in working with a large number of tasks...
-    </p>
+      <div class="project-info-box">
+        <p><b>Локација: </b><span th:text="${article.getLocationname()}"></span></p>
+        <p><b>Количина: </b><span th:text="${article.getQuantity()}"></span></p>
+      </div><!-- / project-info-box -->
+
+      <div class="project-info-box mt-0 mb-0">
+        <p class="mb-0">
+          <a class="btn btn-danger" href="/worker/articles" role="button">&laquo; Назад</a>
+
+        </p>
+      </div><!-- / project-info-box -->
+    </div><!-- / column -->
+
+    <div class="col-md-7 mt-3">
+      <img th:src="${article.getImageurl()}" alt="project-image" class="rounded img-fluid">
   </div>
-  <div class="col-md-6 text-center">
-    <h2>За развивачите</h2>
-    <p>Learn more about the developer of the application</p>
-  </div>
+</div>
 </div>
 </body>
 </html>
