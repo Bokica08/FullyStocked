@@ -57,9 +57,15 @@ public class InvoicesServiceImpl implements InvoicesService {
         {
             throw new ArticleNotAvailableException();
         }
+        storedArticle.setQuantity(storedArticle.getQuantity()-quantity);
         InvoicedArticles invoicedArticles=new InvoicedArticles(price, quantity, invoice, article);
         invoicedArticlesRepository.save(invoicedArticles);
         invoice.getArticlesList().add(invoicedArticles);
         return Optional.of(invoicesRepository.save(invoice));
+    }
+
+    @Override
+    public Optional<Invoices> findById(Integer id) {
+        return invoicesRepository.findById(id);
     }
 }

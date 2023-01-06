@@ -1,4 +1,4 @@
-package com.bazi.fullystocked.Controller;
+package com.bazi.fullystocked.Web.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

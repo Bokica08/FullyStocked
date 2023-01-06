@@ -1,4 +1,4 @@
-package com.bazi.fullystocked.Controller;
+package com.bazi.fullystocked.Web.Controller;
 
 import com.bazi.fullystocked.Models.SqlViews.ArticlesReport;
 import com.bazi.fullystocked.Models.StoredArticles;
@@ -47,6 +47,6 @@ public class WorkerController {
             model.addAttribute("article",articlesReport);
             return "detailsArticle";
         }
-        return "redirect:/articles?error=ArticleNotFound";
+        return "redirect:/worker/articles?error=ArticleNotFound";
     }
 }

@@ -1,4 +1,4 @@
-package com.bazi.fullystocked.Controller;
+package com.bazi.fullystocked.Web.Controller;
 
 import com.bazi.fullystocked.Models.Exceptions.InvalidArgumentsException;
 import com.bazi.fullystocked.Models.Exceptions.UsernameAlreadyExistsException;

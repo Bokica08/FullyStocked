@@ -1,16 +1,16 @@
-package com.bazi.fullystocked.Controller;
+package com.bazi.fullystocked.Web.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value ="/manager")
-public class ManagerController {
+@RequestMapping(value ="/supplier")
+public class SupplierController {
     @GetMapping
-    public String getManagerPage()
+    public String getSupplierPage()
     {
 
-        return "homeManager";
+        return "homeSupplier";
     }
 }

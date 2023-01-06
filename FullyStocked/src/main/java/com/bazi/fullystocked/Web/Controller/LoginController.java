@@ -1,4 +1,4 @@
-package com.bazi.fullystocked.Controller;
+package com.bazi.fullystocked.Web.Controller;
 
 import com.bazi.fullystocked.Models.Exceptions.InvalidUserCredentialsException;
 import com.bazi.fullystocked.Models.Managers;
@@ -59,7 +59,7 @@ public class LoginController {
             }
             return "redirect:/home";
         }
-        catch (InvalidUserCredentialsException exception) {
+        catch (Exception exception) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", exception.getMessage());
 
