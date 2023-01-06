@@ -48,7 +48,7 @@ public class StoredArticlesServiceImpl implements StoredArticlesService {
         {
             throw new InvalidArgumentsException();
         }
-        StoredArticles storedArticle=storedArticlesRepository.findAllByArticleAndLocations(orderedArticle.getArticle(), orderedArticle.getLocation()).get(0);
+        StoredArticles storedArticle=storedArticlesRepository.findByArticleAndLocations(orderedArticle.getArticle(), orderedArticle.getLocation()).orElseThrow(InvalidArgumentsException::new);
         storedArticle.setQuantity(storedArticle.getQuantity()+ orderedArticle.getQuantity());
         orderedArticle.setArticlestatus(ArticleStatus.PROCESSED);
         ordersService.updateStatus(orderedArticle.getOrder().getOrderid(), OrderStatus.PROCESSED);

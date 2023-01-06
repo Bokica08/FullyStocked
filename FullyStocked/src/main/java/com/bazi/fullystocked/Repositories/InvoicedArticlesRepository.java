@@ -11,5 +11,5 @@ import java.util.*;
 public interface InvoicedArticlesRepository extends JpaRepository<InvoicedArticles, Integer> {
     List<InvoicedArticles> findAllByArticle(Articles article);
     List<InvoicedArticles> findAllByInvoice(Invoices invoice);
-    List<InvoicedArticles> findAllByInvoiceAndArticle(Invoices invoice, Articles article);
+    Optional<InvoicedArticles> findByInvoiceAndArticle(Invoices invoice, Articles article);
 }

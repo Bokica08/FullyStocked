@@ -10,7 +10,7 @@ import java.util.*;
 public interface StoredArticlesRepository extends JpaRepository<StoredArticles, Integer> {
     List<StoredArticles> findAllByLocations(Locations location);
     List<StoredArticles> findAllByArticle(Articles article);
-    List<StoredArticles> findAllByArticleAndLocations(Articles article, Locations location);
+    Optional<StoredArticles> findByArticleAndLocations(Articles article, Locations location);
     List<StoredArticles> findAllByLocationsAndQuantityIsLessThanEqual(Locations location, int quantity);
     List<StoredArticles> findAllByLocationsAndQuantity(Locations location, int quantity);
 

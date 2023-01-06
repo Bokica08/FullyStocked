@@ -4,6 +4,8 @@ import com.bazi.fullystocked.Models.*;
 import com.bazi.fullystocked.Models.Enumerations.ArticleStatus;
 import com.bazi.fullystocked.Models.Enumerations.OrderPriority;
 import com.bazi.fullystocked.Models.Enumerations.OrderStatus;
+import com.bazi.fullystocked.Models.Exceptions.ArticleAlreadyInOrderException;
+import com.bazi.fullystocked.Models.Exceptions.ArticleMaxQuantityException;
 import com.bazi.fullystocked.Models.Exceptions.InvalidArgumentsException;
 import com.bazi.fullystocked.Repositories.*;
 import com.bazi.fullystocked.Services.OrdersService;
@@ -54,13 +56,25 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     @Transactional
     public Optional<Orders> addArticleToOrder(int quantity, Integer locationId, Integer articleId, Integer orderId) {
+        Locations location=locationsRepository.findById(locationId).orElseThrow(InvalidArgumentsException::new);
+        Articles article=articlesRepository.findById(articleId).orElseThrow(InvalidArgumentsException::new);
+        Orders order=ordersRepository.findById(orderId).orElseThrow(InvalidArgumentsException::new);
+        if(orderedArticlesRepository.findByOrderAndArticle(order, article).isPresent())
+        {
+            throw new ArticleAlreadyInOrderException();
+        }
         if(quantity<=0)
         {
             throw new InvalidArgumentsException();
         }
-        Locations location=locationsRepository.findById(locationId).orElseThrow(InvalidArgumentsException::new);
-        Articles article=articlesRepository.findById(articleId).orElseThrow(InvalidArgumentsException::new);
-        Orders order=ordersRepository.findById(orderId).orElseThrow(InvalidArgumentsException::new);
+        int quantityAlreadyOrdered=orderedArticlesRepository.findAllByLocationAndArticleAndArticlestatus(location, article, ArticleStatus.ORDERED).
+                stream().mapToInt(OrderedArticles::getQuantity).sum()+
+                    orderedArticlesRepository.findAllByLocationAndArticleAndArticlestatus(location, article, ArticleStatus.DELIVERED).
+                        stream().mapToInt(OrderedArticles::getQuantity).sum();
+        if(article.getMaxquantityperlocation()<quantityAlreadyOrdered+quantity)
+        {
+            throw new ArticleMaxQuantityException();
+        }
         OrderedArticles orderedArticles=orderedArticlesRepository.save(new OrderedArticles(quantity, order, location, article));
         order.getArticlesList().add(orderedArticles);
         return Optional.of(ordersRepository.save(order));
