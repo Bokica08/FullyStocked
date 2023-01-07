@@ -7,11 +7,13 @@ import com.bazi.fullystocked.Models.Enumerations.OrderStatus;
 import com.bazi.fullystocked.Models.Exceptions.ArticleAlreadyInOrderException;
 import com.bazi.fullystocked.Models.Exceptions.ArticleMaxQuantityException;
 import com.bazi.fullystocked.Models.Exceptions.InvalidArgumentsException;
+import com.bazi.fullystocked.Models.SqlViews.OrdersReport;
 import com.bazi.fullystocked.Repositories.*;
 import com.bazi.fullystocked.Services.OrdersService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,14 +26,16 @@ public class OrdersServiceImpl implements OrdersService {
     private final ArticlesRepository articlesRepository;
     private final LocationsRepository locationsRepository;
     private final OrderedArticlesRepository orderedArticlesRepository;
+    private final OrdersReportRepository ordersReportRepository;
 
-    public OrdersServiceImpl(OrdersRepository ordersRepository, ManagersRepository managersRepository, SuppliersRepository suppliersRepository, ArticlesRepository articlesRepository, LocationsRepository locationsRepository, OrderedArticlesRepository orderedArticlesRepository) {
+    public OrdersServiceImpl(OrdersRepository ordersRepository, ManagersRepository managersRepository, SuppliersRepository suppliersRepository, ArticlesRepository articlesRepository, LocationsRepository locationsRepository, OrderedArticlesRepository orderedArticlesRepository, OrdersReportRepository ordersReportRepository) {
         this.ordersRepository = ordersRepository;
         this.managersRepository = managersRepository;
         this.suppliersRepository = suppliersRepository;
         this.articlesRepository = articlesRepository;
         this.locationsRepository = locationsRepository;
         this.orderedArticlesRepository = orderedArticlesRepository;
+        this.ordersReportRepository = ordersReportRepository;
     }
 
     @Override
@@ -48,6 +52,11 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public List<OrdersReport> findAllByManagerReport(Integer managerId) {
+        return ordersReportRepository.findAllByManageruserid(managerId);
+    }
+
+    @Override
     public List<Orders> findAllByManagerAndStatus(Integer managerId, OrderStatus status) {
         Managers manager=managersRepository.findById(managerId).orElseThrow(InvalidArgumentsException::new);
         return ordersRepository.findAllByManagerAndStatus(manager, status);
@@ -59,7 +68,11 @@ public class OrdersServiceImpl implements OrdersService {
         Locations location=locationsRepository.findById(locationId).orElseThrow(InvalidArgumentsException::new);
         Articles article=articlesRepository.findById(articleId).orElseThrow(InvalidArgumentsException::new);
         Orders order=ordersRepository.findById(orderId).orElseThrow(InvalidArgumentsException::new);
-        if(orderedArticlesRepository.findByOrderAndArticle(order, article).isPresent())
+        if(!order.getStatus().equals(OrderStatus.CREATED))
+        {
+            throw new InvalidArgumentsException();
+        }
+        if(orderedArticlesRepository.findByOrderAndArticleAndLocation(order, article, location).isPresent())
         {
             throw new ArticleAlreadyInOrderException();
         }
@@ -101,6 +114,11 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public List<OrdersReport> findAllBySupplierReport(Integer supplierId) {
+        return ordersReportRepository.findAllBySupplieruserid(supplierId);
+    }
+
+    @Override
     public List<Orders> findAllBySupplierAndStatus(Integer supplierId, OrderStatus status) {
         Suppliers supplier=suppliersRepository.findById(supplierId).orElseThrow(InvalidArgumentsException::new);
         return ordersRepository.findAllBySupplierAndStatus(supplier, status);
@@ -112,17 +130,26 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public Optional<OrdersReport> findByIdReport(Integer orderId) {
+        return ordersReportRepository.findById(orderId);
+    }
+
+    @Override
     public Optional<Orders> updateStatus(Integer orderId, OrderStatus status) {
         Orders order=ordersRepository.findById(orderId).orElseThrow(InvalidArgumentsException::new);
         if(status.equals(OrderStatus.CREATED))
         {
             throw new InvalidArgumentsException();
         }
-        if(status.equals(OrderStatus.APPROVED) && !order.getStatus().equals(OrderStatus.CREATED))
+        if(status.equals(OrderStatus.SENT) && !order.getStatus().equals(OrderStatus.CREATED))
         {
             throw new InvalidArgumentsException();
         }
-        if(status.equals(OrderStatus.REJECTED) && !order.getStatus().equals(OrderStatus.CREATED))
+        if(status.equals(OrderStatus.APPROVED) && !order.getStatus().equals(OrderStatus.SENT))
+        {
+            throw new InvalidArgumentsException();
+        }
+        if(status.equals(OrderStatus.REJECTED) && !(order.getStatus().equals(OrderStatus.CREATED) || order.getStatus().equals(OrderStatus.SENT)))
         {
             throw new InvalidArgumentsException();
         }
@@ -155,6 +182,10 @@ public class OrdersServiceImpl implements OrdersService {
             {
                 throw new InvalidArgumentsException();
             }
+        }
+        if(status.equals(OrderStatus.APPROVED))
+        {
+            order.setDateapproved(LocalDateTime.now());
         }
         order.setStatus(status);
         return Optional.of(ordersRepository.save(order));

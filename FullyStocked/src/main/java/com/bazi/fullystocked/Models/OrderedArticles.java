@@ -17,8 +17,7 @@ public class OrderedArticles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer oarticleid;
-    @Min(0)
-    private int price;
+    private Integer price;
     @Column(nullable = false)
     @NotNull(message = "Ordered Article must have quantity")
     @Min(0)
@@ -42,5 +41,6 @@ public class OrderedArticles {
         this.order = order;
         this.location = location;
         this.article = article;
+        this.price= null;
     }
 }

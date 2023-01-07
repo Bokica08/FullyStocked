@@ -1,5 +1,6 @@
 package com.bazi.fullystocked.Services.Implementations;
 
+import com.bazi.fullystocked.Models.Categories;
 import com.bazi.fullystocked.Models.Enumerations.ArticleStatus;
 import com.bazi.fullystocked.Models.Enumerations.OrderStatus;
 import com.bazi.fullystocked.Models.Exceptions.InvalidArgumentsException;
@@ -21,24 +22,18 @@ import java.util.Optional;
 
 @Service
 public class StoredArticlesServiceImpl implements StoredArticlesService {
-    private final SupplierSuppliesArticleRepository supplierSuppliesArticleRepository;
     private final OrderedArticlesRepository orderedArticlesRepository;
     private final StoredArticlesRepository storedArticlesRepository;
     private final OrdersService ordersService;
     private final ArticlesReportRepository articlesReportRepository;
 
-    public StoredArticlesServiceImpl(SupplierSuppliesArticleRepository supplierSuppliesArticleRepository, OrderedArticlesRepository orderedArticlesRepository, StoredArticlesRepository storedArticlesRepository, OrdersService ordersService, ArticlesReportRepository articlesReportRepository) {
-        this.supplierSuppliesArticleRepository = supplierSuppliesArticleRepository;
+    public StoredArticlesServiceImpl(OrderedArticlesRepository orderedArticlesRepository, StoredArticlesRepository storedArticlesRepository, OrdersService ordersService, ArticlesReportRepository articlesReportRepository) {
         this.orderedArticlesRepository = orderedArticlesRepository;
         this.storedArticlesRepository = storedArticlesRepository;
         this.ordersService = ordersService;
         this.articlesReportRepository = articlesReportRepository;
     }
 
-    @Override
-    public List<SupplierSuppliesArticleReport> findAllBySupplier(Integer supplierId) {
-        return supplierSuppliesArticleRepository.findAllById_Userid(supplierId);
-    }
 
     @Override
     @Transactional

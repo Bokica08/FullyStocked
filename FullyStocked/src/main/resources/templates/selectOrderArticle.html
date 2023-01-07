@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Worker</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/homeManager">FULLYSTOCKED</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item m-auto">
+                    <a class="nav-link active" href="#">Одговори прашање</a>
+                </li>
+                <li class="nav-item m-auto">
+                    <a class="nav-link active" href="#">Креирај нарчка</a>
+                </li>
+                <li class="nav-item m-auto">
+                    <a class="nav-link active" href="#">Внеси нови артикли</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="nav-item">
+                    <a class="btn btn-light btn-sm ml-3" href="/logout">
+                        <i class="fa fa-shopping-cart"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="d-flex justify-content-center">
+    <h2 class="m-2">Избери артикл</h2>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            Слика
+        </th>
+        <th>
+            Име
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="article : ${articles}">
+        <td></td>
+        <td>
+            <img style="width:300px; max-height:200px " th:src="${article.getImageurl()}">
+        </td>
+        <td th:text="${article.getArticlename()}" class="link">
+        </td>
+
+        <td>
+            <form  action="/orders/articles/select" method="POST">
+                <input type="hidden" name="orderId" th:value="${orderId}">
+                <input type="hidden" name="articleId" th:value="${article.getId().getArticleid()}">
+                <input type="submit" class="btn btn-primary" value="Додади во нарачка">
+            </form>
+
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form action="/orders/send" method="POST">
+            <input type="hidden" name="orderId" th:value="${orderId}">
+            <input type="submit" class="btn btn-primary w-100" value="Испрати нарачка">
+        </form>
+    </div>
+</div>
+<style>
+    .link {
+        font-size: 20px;
+    }
+
+    .link1 {
+        font-size: 18px;
+    }
+
+    th {
+        font-size: 16px;
+    }
+
+</style>
+</body>
+</html>

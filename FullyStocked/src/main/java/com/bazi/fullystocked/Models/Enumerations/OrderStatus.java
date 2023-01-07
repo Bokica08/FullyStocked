@@ -2,6 +2,7 @@ package com.bazi.fullystocked.Models.Enumerations;
 
 public enum OrderStatus {
     CREATED("Created"),
+    SENT("Sent"),
     APPROVED("Approved"),
     CANCELED("Canceled"),
     IN_PROGRESS("In progress"),

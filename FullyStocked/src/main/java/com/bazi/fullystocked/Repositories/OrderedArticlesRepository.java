@@ -16,6 +16,7 @@ public interface OrderedArticlesRepository extends JpaRepository<OrderedArticles
     List<OrderedArticles> findAllByLocationAndArticleAndArticlestatus(Locations location, Articles article, ArticleStatus status);
     List<OrderedArticles> findAllByOrder(Orders order);
     Optional<OrderedArticles> findByOrderAndArticle(Orders order, Articles article);
+    Optional<OrderedArticles> findByOrderAndArticleAndLocation(Orders order, Articles article, Locations location);
     List<OrderedArticles> findAllByArticlestatus(ArticleStatus status);
     List<OrderedArticles> findAllByLocationAndArticlestatus(Locations location, ArticleStatus status);
     List<OrderedArticles> findAllByOrderAndArticlestatus(Orders order, ArticleStatus status);

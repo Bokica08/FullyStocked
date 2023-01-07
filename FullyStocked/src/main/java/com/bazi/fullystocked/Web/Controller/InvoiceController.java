@@ -63,7 +63,7 @@ public class InvoiceController {
     {
         if(invoicesService.findById(invoiceId).isEmpty())
         {
-            return "redirect:/create";
+            return "redirect:/invoices/create";
         }
         try{
             model.addAttribute("invId", invoiceId);

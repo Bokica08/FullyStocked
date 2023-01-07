@@ -1,9 +1,8 @@
 package com.bazi.fullystocked.Web.Controller;
 
 import com.bazi.fullystocked.Models.SqlViews.ArticlesReport;
-import com.bazi.fullystocked.Models.StoredArticles;
-import com.bazi.fullystocked.Models.User;
 import com.bazi.fullystocked.Models.Workers;
+import com.bazi.fullystocked.Services.ArticlesService;
 import com.bazi.fullystocked.Services.StoredArticlesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,15 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping(value ="/worker")
 public class WorkerController {
    private final StoredArticlesService storedArticlesService;
+   private final ArticlesService articlesService;
 
-    public WorkerController(StoredArticlesService storedArticlesService) {
+    public WorkerController(StoredArticlesService storedArticlesService, ArticlesService articlesService) {
         this.storedArticlesService = storedArticlesService;
+        this.articlesService = articlesService;
     }
 
     @GetMapping
@@ -45,6 +45,7 @@ public class WorkerController {
         {
             ArticlesReport articlesReport=this.storedArticlesService.findById(id).get();
             model.addAttribute("article",articlesReport);
+            model.addAttribute("categories", articlesService.findAllCategoriesByArticle(articlesReport.getArticleid()));
             return "detailsArticle";
         }
         return "redirect:/worker/articles?error=ArticleNotFound";

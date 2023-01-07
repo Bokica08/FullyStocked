@@ -56,6 +56,15 @@
         <p><b>Количина: </b><span th:text="${article.getQuantity()}"></span></p>
       </div><!-- / project-info-box -->
 
+      <div class="project-info-box">
+        <p><b>Категории: </b></p>
+        <ul>
+          <li th:each="cat : ${categories}">
+            <span th:text="${cat.getCategoryname()}"></span>
+          </li>
+        </ul>
+      </div><!-- / project-info-box -->
+
       <div class="project-info-box mt-0 mb-0">
         <p class="mb-0">
           <a class="btn btn-danger" href="/worker/articles" role="button">&laquo; Назад</a>
