@@ -14,6 +14,7 @@ public interface ArticlesService {
 
     Optional<Articles> addToCategory(Integer articleId, Integer categoryId);
     List<Categories> findAllCategoriesByArticle(Integer articleId);
+    List<Articles> findAll();
 
     List<SupplierSuppliesArticleReport> findAllBySupplier(Integer id);
 

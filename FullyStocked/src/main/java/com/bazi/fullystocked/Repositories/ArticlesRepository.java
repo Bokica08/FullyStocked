@@ -10,4 +10,5 @@ import java.util.*;
 public interface ArticlesRepository extends JpaRepository<Articles, Integer> {
     List<Articles> findAllByArticlenameContainingIgnoreCase(String name);
     List<Articles> findAllByCategoryListContaining(Categories category);
+    List<Articles> findAllBy();
 }

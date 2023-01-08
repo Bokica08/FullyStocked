@@ -8,4 +8,5 @@ import java.util.*;
 @Repository
 public interface CategoriesRepository extends JpaRepository<Categories, Integer> {
     List<Categories> findAllByCategorynameContainsIgnoreCase(String name);
+    List<Categories> findAll();
 }

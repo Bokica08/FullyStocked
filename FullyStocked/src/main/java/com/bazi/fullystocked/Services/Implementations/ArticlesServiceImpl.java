@@ -55,6 +55,10 @@ public class ArticlesServiceImpl implements ArticlesService {
     public Optional<Articles> addToCategory(Integer articleId, Integer categoryId) {
         Categories category=categoriesRepository.findById(categoryId).orElseThrow(InvalidArgumentsException::new);
         Articles articles=articlesRepository.findById(articleId).orElseThrow(InvalidArgumentsException::new);
+        if(articles.getCategoryList().contains(category))
+        {
+            return Optional.of(articles);
+        }
         articles.getCategoryList().add(category);
         articlesRepository.save(articles);
         return Optional.of(articles);
@@ -64,6 +68,11 @@ public class ArticlesServiceImpl implements ArticlesService {
     public List<Categories> findAllCategoriesByArticle(Integer articleId) {
         Articles articles=articlesRepository.findById(articleId).orElseThrow(InvalidArgumentsException::new);
         return articles.getCategoryList();
+    }
+
+    @Override
+    public List<Articles> findAll() {
+        return articlesRepository.findAll();
     }
 
     @Override
