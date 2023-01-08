@@ -10,4 +10,5 @@ import java.util.*;
 @Repository
 public interface AnswersRepository extends JpaRepository<Answers, AnswerId> {
     List<Answers> findAnswersByAnswerId_Question(Questions q);
+    int countAnswersByAnswerId_Question(Questions q);
 }

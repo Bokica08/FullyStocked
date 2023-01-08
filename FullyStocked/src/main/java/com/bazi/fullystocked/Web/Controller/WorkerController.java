@@ -1,11 +1,10 @@
 package com.bazi.fullystocked.Web.Controller;
 
 import com.bazi.fullystocked.Models.Enumerations.ArticleStatus;
+import com.bazi.fullystocked.Models.Questions;
 import com.bazi.fullystocked.Models.SqlViews.ArticlesReport;
 import com.bazi.fullystocked.Models.Workers;
-import com.bazi.fullystocked.Services.ArticlesService;
-import com.bazi.fullystocked.Services.OrderedArticlesService;
-import com.bazi.fullystocked.Services.StoredArticlesService;
+import com.bazi.fullystocked.Services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +18,15 @@ public class WorkerController {
    private final StoredArticlesService storedArticlesService;
    private final ArticlesService articlesService;
    private final OrderedArticlesService orderedArticlesService;
+   private final QuestionsService questionsService;
+   private final ManagersService managersService;
 
-    public WorkerController(StoredArticlesService storedArticlesService, ArticlesService articlesService, OrderedArticlesService orderedArticlesService) {
+    public WorkerController(StoredArticlesService storedArticlesService, ArticlesService articlesService, OrderedArticlesService orderedArticlesService, QuestionsService questionsService, ManagersService managersService) {
         this.storedArticlesService = storedArticlesService;
         this.articlesService = articlesService;
         this.orderedArticlesService = orderedArticlesService;
+        this.questionsService = questionsService;
+        this.managersService = managersService;
     }
 
     @GetMapping
@@ -80,6 +83,37 @@ public class WorkerController {
         catch (Exception e)
         {
             return "redirect:/worker/deliveredArticles?error="+e.getMessage();
+        }
+    }
+
+    @PostMapping("/articles/askAQuestion")
+    public String askAQuestionForASingleArticle(@RequestParam Integer articleId, Model model)
+    {
+        model.addAttribute("articleId", articleId);
+        model.addAttribute("managers", managersService.findAll());
+        return "AskAQuestionSingle";
+    }
+    @PostMapping("/articles/askAQuestion/send")
+    public String sendQuestionSingle(@RequestParam Integer articleId, @RequestParam Integer managerId, @RequestParam String text, HttpServletRequest request)
+    {
+        try
+        {
+            Workers u= (Workers) request.getSession().getAttribute("user");
+            if(storedArticlesService.findById(articleId).isEmpty())
+            {
+                return "redirect:/worker/articles";
+            }
+            if(!storedArticlesService.findById(articleId).get().getLocationid().equals(u.getLocation().getLocationid()))
+            {
+                return "redirect:/login";
+            }
+            Questions q=questionsService.create(text, u.getUserid(), managerId).orElseThrow();
+            questionsService.addArticle(q.getQuestionid(), articleId);
+            return "redirect:/worker";
+        }
+        catch (Exception e)
+        {
+            return "redirect:/worker?error="+e.getMessage();
         }
     }
 

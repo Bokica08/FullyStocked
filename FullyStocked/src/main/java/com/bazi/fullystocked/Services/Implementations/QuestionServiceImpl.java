@@ -1,5 +1,6 @@
 package com.bazi.fullystocked.Services.Implementations;
 
+import com.bazi.fullystocked.Models.Exceptions.ArticleAlreadyInQuestionException;
 import com.bazi.fullystocked.Models.Exceptions.InvalidArgumentsException;
 import com.bazi.fullystocked.Models.Managers;
 import com.bazi.fullystocked.Models.Questions;
@@ -38,7 +39,7 @@ public class QuestionServiceImpl implements QuestionsService {
         {
             throw new InvalidArgumentsException();
         }
-        return Optional.of(new Questions(text, worker, manager));
+        return Optional.of(questionsRepository.save(new Questions(text, worker, manager)));
     }
 
     @Override
@@ -46,7 +47,12 @@ public class QuestionServiceImpl implements QuestionsService {
     public Optional<Questions> addArticle(Integer questionid, Integer sarticleid) {
         Questions question=questionsRepository.findById(questionid).orElseThrow(InvalidArgumentsException::new);
         StoredArticles article=storedArticlesRepository.findById(sarticleid).orElseThrow(InvalidArgumentsException::new);
-        question.getStoredarticlesList().add(article);
+        if(article.getQuestionsList().stream().anyMatch(questions -> questions.getQuestionid().equals(questionid)))
+        {
+            throw new ArticleAlreadyInQuestionException();
+        }
+        article.getQuestionsList().add(question);
+        storedArticlesRepository.save(article);
         questionsRepository.save(question);
         return Optional.of(question);
     }

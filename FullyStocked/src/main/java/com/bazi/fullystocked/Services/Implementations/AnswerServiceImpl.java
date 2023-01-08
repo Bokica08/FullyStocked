@@ -34,6 +34,6 @@ public class AnswerServiceImpl implements AnswerService {
         {
             throw new InvalidArgumentsException();
         }
-        return Optional.of(answersRepository.save(new Answers(question, text)));
+        return Optional.of(answersRepository.save(new Answers(question, answersRepository.countAnswersByAnswerId_Question(question) +1, text)));
     }
 }

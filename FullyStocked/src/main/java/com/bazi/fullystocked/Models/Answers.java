@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,9 +22,11 @@ public class Answers {
     @Column(nullable = false)
     private String answertext;
 
-    public Answers(Questions question, String answertext) {
+    public Answers(Questions question, Integer answerCount, String answertext) {
         this.datecreated = LocalDateTime.now();
         this.answertext = answertext;
-        answerId.setQuestion(question);
+        this.answerId=new AnswerId();
+        this.answerId.setAnswerid(answerCount);
+        this.answerId.setQuestion(question);
     }
 }
