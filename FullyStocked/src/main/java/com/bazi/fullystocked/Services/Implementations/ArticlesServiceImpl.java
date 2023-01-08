@@ -31,6 +31,7 @@ public class ArticlesServiceImpl implements ArticlesService {
     }
 
     @Override
+    @Transactional
     public Optional<Articles> create(String description, String articlename, int maxquantityperlocation) {
         if(description==null || description.isEmpty() || articlename==null || articlename.isEmpty() || maxquantityperlocation<=0)
         {
@@ -40,6 +41,7 @@ public class ArticlesServiceImpl implements ArticlesService {
     }
 
     @Override
+    @Transactional
     public Optional<Articles> create(String description, String articlename, String imageurl, int maxquantityperlocation) {
         if(description==null || description.isEmpty() || articlename==null || articlename.isEmpty() || maxquantityperlocation<=0)
         {
