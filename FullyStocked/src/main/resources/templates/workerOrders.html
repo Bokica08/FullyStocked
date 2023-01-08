@@ -4,13 +4,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Worker</title>
+    <title>Title</title>
 </head>
-
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="/homeSupplier">FULLYSTOCKED</a>
+        <a class="navbar-brand" href="/homeWorker">FULLYSTOCKED</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
                 aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -19,10 +18,16 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
             <ul class="navbar-nav m-auto">
                 <li class="nav-item m-auto">
-                    <a class="nav-link active" href="#">Нарачки</a>
+                    <a class="nav-link active" href="#">Преглед на магацинот</a>
                 </li>
                 <li class="nav-item m-auto">
-                    <a class="nav-link active" href="#">Категории</a>
+                    <a class="nav-link active" href="#">Постави прашање</a>
+                </li>
+                <li class="nav-item m-auto">
+                    <a class="nav-link active" href="#">Погледни одговори</a>
+                </li>
+                <li class="nav-item m-auto">
+                    <a class="nav-link active" href="#">Креирај фактура</a>
                 </li>
             </ul>
 
@@ -37,9 +42,8 @@
         </div>
     </div>
 </nav>
-</header>
 <div class="d-flex justify-content-center">
-    <h2 class="m-2">Нарачки</h2>
+    <h2 class="m-2">Нарачки во тек</h2>
 </div>
 <table class="table">
     <thead>
@@ -48,16 +52,16 @@
 
         </th>
         <th>
-            Забелешка на менаџер
-        </th>
-        <th>
-            Забелешка на добавувач
+            Добавувач
         </th>
         <th>
             Статус
         </th>
         <th>
             Приоритет
+        </th>
+        <th>
+            Забелешка
         </th>
         <th>
             Датум креирана
@@ -70,14 +74,15 @@
     <tbody>
     <tr th:each="order : ${orders}">
         <td></td>
-        <td th:text="${order.getManagerremark()}" class="link"></td>
-        <td th:text="${order.getSupplierremark()}" class="link"></td>
+        <td th:text="${order.getSupplierinfo()}" class="link"></td>
         <td th:text="${order.getStatus()}" class="link"></td>
         <td th:text="${order.getPriority()}" class="link"></td>
+        <td th:text="${order.getManagerremark()}" class="link"></td>
         <td th:text="${order.getDatecreated()}" class="link"></td>
         <td>
-            <form th:action="@{'/orders/supplier/details/{id}' (id=${order.getOrderid()})} " th:method="GET">
-                <button class="btn btn-primary" >Детален преглед</button>
+            <form action="/orders/worker/accept" th:method="POST">
+                <input type="hidden" name="orderId" th:value="${order.getOrderid()}">
+                <button class="btn btn-primary" >Означи како доставена</button>
             </form>
         </td>
     </tr>

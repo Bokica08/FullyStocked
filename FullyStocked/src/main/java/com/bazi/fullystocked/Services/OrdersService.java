@@ -22,5 +22,6 @@ public interface OrdersService {
     Optional<Orders> findById(Integer orderId);
     Optional<OrdersReport> findByIdReport(Integer orderId);
     Optional<Orders> updateStatus(Integer orderId, OrderStatus status);
+    List<OrdersReport> findByStatus(OrderStatus status);
 
 }

@@ -26,4 +26,5 @@ public class OrderedArticlesReport {
     @Enumerated(EnumType.STRING)
     private ArticleStatus articlestatus;
     private int orderid;
+    private int storedquantity;
 }

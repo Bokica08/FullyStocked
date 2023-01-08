@@ -1,14 +1,14 @@
 package com.bazi.fullystocked.Web.Controller;
 
+import com.bazi.fullystocked.Models.Enumerations.ArticleStatus;
 import com.bazi.fullystocked.Models.SqlViews.ArticlesReport;
 import com.bazi.fullystocked.Models.Workers;
 import com.bazi.fullystocked.Services.ArticlesService;
+import com.bazi.fullystocked.Services.OrderedArticlesService;
 import com.bazi.fullystocked.Services.StoredArticlesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -18,10 +18,12 @@ import java.util.List;
 public class WorkerController {
    private final StoredArticlesService storedArticlesService;
    private final ArticlesService articlesService;
+   private final OrderedArticlesService orderedArticlesService;
 
-    public WorkerController(StoredArticlesService storedArticlesService, ArticlesService articlesService) {
+    public WorkerController(StoredArticlesService storedArticlesService, ArticlesService articlesService, OrderedArticlesService orderedArticlesService) {
         this.storedArticlesService = storedArticlesService;
         this.articlesService = articlesService;
+        this.orderedArticlesService = orderedArticlesService;
     }
 
     @GetMapping
@@ -50,4 +52,35 @@ public class WorkerController {
         }
         return "redirect:/worker/articles?error=ArticleNotFound";
     }
+    @GetMapping("/deliveredArticles")
+    public String listDeliveredArticles(Model model, HttpServletRequest request)
+    {
+        Workers u= (Workers) request.getSession().getAttribute("user");
+        model.addAttribute("articles", orderedArticlesService.findByStatusAtLocation(ArticleStatus.DELIVERED, u.getLocation().getLocationid()));
+        return "deliveredArticles";
+    }
+
+    @PostMapping("/deliveredArticles/process")
+    public String processOrderedArticle(@RequestParam Integer articleId, HttpServletRequest request)
+    {
+        try
+        {
+            Workers u= (Workers) request.getSession().getAttribute("user");
+            if(storedArticlesService.findById(articleId).isEmpty())
+            {
+                return "redirect:/worker/deliveredArticles";
+            }
+            if(!storedArticlesService.findById(articleId).get().getLocationid().equals(u.getLocation().getLocationid()))
+            {
+                return "redirect:/login";
+            }
+            storedArticlesService.updateFromOrder(articleId);
+            return "redirect:/worker/deliveredArticles";
+        }
+        catch (Exception e)
+        {
+            return "redirect:/worker/deliveredArticles?error="+e.getMessage();
+        }
+    }
+
 }

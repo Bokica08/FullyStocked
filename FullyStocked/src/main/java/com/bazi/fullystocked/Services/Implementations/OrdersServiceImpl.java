@@ -191,4 +191,9 @@ public class OrdersServiceImpl implements OrdersService {
         return Optional.of(ordersRepository.save(order));
     }
 
+    @Override
+    public List<OrdersReport> findByStatus(OrderStatus status) {
+        return ordersReportRepository.findAllByStatus(status);
+    }
+
 }

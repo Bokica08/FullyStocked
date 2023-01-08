@@ -290,10 +290,22 @@ public class OrderController {
         }
         return "redirect:/orders/manager/details/"+orderId;
     }
+    @GetMapping("/worker/list")
+    public String listOrdersWorker(Model model)
+    {
+        model.addAttribute("orders", ordersService.findByStatus(OrderStatus.IN_PROGRESS));
+        return "workerOrders";
+    }
     @PostMapping("/worker/accept")
     public String acceptOrder(@RequestParam Integer orderId)
     {
-        ordersService.updateStatus(orderId, OrderStatus.DELIVERED);
-        return "redirect:/worker";
+        try {
+            ordersService.updateStatus(orderId, OrderStatus.DELIVERED);
+        }
+        catch (Exception e)
+        {
+            return "redirect:/orders/worker/list"+e.getMessage();
+        }
+        return "redirect:/orders/worker/list";
     }
 }
