@@ -38,27 +38,15 @@
   </div>
 </nav>
 </header>
-<div class="jumbotron">
-  <h1 class="text-center">FullyStocked</h1>
-  <hr />
-  <h2 class="lead text-center">Добредојдовте на FullyStocked</h2>
-  <h3 class="lead text-center"><b>Информации за добавувач</b></h3>
-  <p class="lead text-center font-weight-bold">Добавувач: <span th:text="${session.info}"></span></p>
-  <p class="lead text-center font-weight-bold">Телефон: <span th:text="${session.number}"></span></p>
-  <p class="lead text-center font-weight-bold">Адреса: <span th:text="${session.location}"></span></p>
+<div class="d-flex justify-content-center">
+  <h2 class="m-2">Категории што ги добавува добавувачот</h2>
 </div>
-
-<div class="row">
-  <div class="col-md-6 text-center">
-    <h2>За апликацијата</h2>
-    <p>
-      This application will enable management, searching, review and assignment of tasks in an organization and will aim to facilitate all concerned and responsible employees in working with a large number of tasks...
-    </p>
-  </div>
-  <div class="col-md-6 text-center">
-    <h2>За развивачите</h2>
-    <p>Learn more about the developer of the application</p>
-  </div>
+<div class="d-flex justify-content-center">
+<ul class="list-group list-group-flush">
+  <li th:each="cat: ${categoires}"
+      th:text="${cat.getCategoryname()}"
+      class="list-group-item"></li>
+</ul>
 </div>
 </body>
 </html>
