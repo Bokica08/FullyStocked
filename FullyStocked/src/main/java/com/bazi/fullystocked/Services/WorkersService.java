@@ -5,4 +5,5 @@ import java.util.*;
 
 public interface WorkersService {
     Optional<Workers> assignLocation(Integer workerId, Integer locationId);
+    List<Workers> findAllWithNoLocation();
 }

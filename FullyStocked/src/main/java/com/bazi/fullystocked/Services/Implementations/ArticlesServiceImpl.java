@@ -37,7 +37,7 @@ public class ArticlesServiceImpl implements ArticlesService {
         {
             throw new InvalidArgumentsException();
         }
-        return Optional.of(articlesRepository.save(new Articles(description, articlename, maxquantityperlocation)));
+        return Optional.of(articlesRepository.saveAndFlush(new Articles(description, articlename, maxquantityperlocation)));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ArticlesServiceImpl implements ArticlesService {
         {
             throw new InvalidArgumentsException();
         }
-        return Optional.of(articlesRepository.save(new Articles(description, articlename, imageurl, maxquantityperlocation)));
+        return Optional.of(articlesRepository.saveAndFlush(new Articles(description, articlename, imageurl, maxquantityperlocation)));
     }
 
     @Override

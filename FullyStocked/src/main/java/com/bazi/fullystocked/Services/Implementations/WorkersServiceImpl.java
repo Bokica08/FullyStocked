@@ -8,6 +8,7 @@ import com.bazi.fullystocked.Repositories.WorkersRepository;
 import com.bazi.fullystocked.Services.WorkersService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,11 @@ public class WorkersServiceImpl implements WorkersService {
         Workers worker=workersRepository.findById(workerId).orElseThrow(InvalidArgumentsException::new);
         Locations location=locationsRepository.findById(locationId).orElseThrow(InvalidArgumentsException::new);
         worker.setLocation(location);
-        return Optional.of(worker);
+        return Optional.of(workersRepository.save(worker));
+    }
+
+    @Override
+    public List<Workers> findAllWithNoLocation() {
+        return workersRepository.findAllByLocationIsNull();
     }
 }
