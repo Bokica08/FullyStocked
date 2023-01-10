@@ -1,12 +1,16 @@
 package com.bazi.fullystocked.Services.Implementations;
 
+import com.bazi.fullystocked.Models.Categories;
+import com.bazi.fullystocked.Models.Exceptions.InvalidArgumentsException;
 import com.bazi.fullystocked.Models.SqlViews.SuppliersReport;
 import com.bazi.fullystocked.Models.Suppliers;
+import com.bazi.fullystocked.Repositories.CategoriesRepository;
 import com.bazi.fullystocked.Repositories.SuppliersReportRepository;
 import com.bazi.fullystocked.Repositories.SuppliersRepository;
 import com.bazi.fullystocked.Services.SuppliersService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,5 +42,12 @@ public class SuppliersServiceImpl implements SuppliersService {
     @Override
     public Optional<Suppliers> findById(Integer id) {
         return suppliersRepository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Categories> findCategoriesBySupplier(Integer id) {
+        Suppliers supplier=suppliersRepository.findById(id).orElseThrow(InvalidArgumentsException::new);
+        return supplier.getCategoryList();
     }
 }

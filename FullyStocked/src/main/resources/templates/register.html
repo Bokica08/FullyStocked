@@ -14,6 +14,10 @@
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Регистрација</p>
 
+                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 text-danger" th:if="${error!=null}">
+                  <th:block th:text="${error}">
+                </div>
+
                 <form class="mx-1 mx-md-4" method="POST" action="/register">
 
                   <div class="d-flex flex-row align-items-center mb-4">
@@ -68,6 +72,7 @@
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button type="submit" class="btn btn-primary btn-lg">Регистрирај се</button>
                   </div>
+
 
                 </form>
                 <p class="d-flex justify-content-center">Веќе имаш профил? <a href="/login" class="link-info"> Најави сe тука!</a></p>

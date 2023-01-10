@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,9 +28,9 @@ public class LoginController {
     }
 
     @GetMapping
-    public String getLoginPage(Model m) {
+    public String getLoginPage(Model m, @RequestParam(required = false) String error) {
         m.addAttribute("bodycontent","login");
-
+        m.addAttribute("error", error);
         return "/login";
     }
 
@@ -60,11 +61,9 @@ public class LoginController {
             }
             return "redirect:/home";
         }
-        catch (InvalidUserCredentialsException exception) {
-            model.addAttribute("hasError", true);
-            model.addAttribute("error", exception.getMessage());
+        catch (Exception exception) {
 
-            return "redirect:/login";
+            return "redirect:/login?error="+exception.getMessage();
         }
     }
 }

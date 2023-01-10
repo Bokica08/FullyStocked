@@ -24,6 +24,9 @@
 
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Најави се</button>
 
+                    <div class="form-outline mt-3 text-danger" th:if="${error!=null}">
+                        <th:block th:text="${error}"></th:block>
+                    </div>
 
 
                 </form>

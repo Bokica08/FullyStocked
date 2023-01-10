@@ -34,7 +34,7 @@ public class Suppliers extends User{
     @NotNull(message = "Supplier must have street city")
     @NotEmpty(message = "Supplier must have street city")
     private String city;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(name = "supplier_supplies_category",
             joinColumns = @JoinColumn(name = "userid"),
             inverseJoinColumns = @JoinColumn(name = "categoryid")

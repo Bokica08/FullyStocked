@@ -24,6 +24,7 @@ public class RegisterController {
     @GetMapping
     public String getRegisterPage(@RequestParam(required = false) String error, Model model)
     {
+        model.addAttribute("error", error);
         return "register";
     }
     @PostMapping
@@ -45,7 +46,7 @@ public class RegisterController {
             }
             return "redirect:/login";
         }
-        catch (UsernameAlreadyExistsException | InvalidArgumentsException exception)
+        catch (Exception exception)
         {
             return "redirect:/register?error="+exception.getMessage();
         }
@@ -68,8 +69,9 @@ public class RegisterController {
             request.getSession().invalidate();
             return "redirect:/login";
         }
-        catch (UsernameAlreadyExistsException | InvalidArgumentsException exception)
+        catch (Exception exception)
         {
+            request.getSession().invalidate();
             return "redirect:/register?error="+exception.getMessage();
         }
     }

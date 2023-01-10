@@ -1,5 +1,6 @@
 package com.bazi.fullystocked.Services;
 
+import com.bazi.fullystocked.Models.Categories;
 import com.bazi.fullystocked.Models.SqlViews.SuppliersReport;
 import com.bazi.fullystocked.Models.Suppliers;
 
@@ -10,4 +11,5 @@ public interface SuppliersService {
     Optional<SuppliersReport> findByIdReport(Integer id);
     List<SuppliersReport> findAllSuppliersReport();
     Optional<Suppliers> findById(Integer id);
+    List<Categories> findCategoriesBySupplier(Integer id);
 }
