@@ -173,7 +173,7 @@ public class OrdersServiceImpl implements OrdersService {
             }
             if(order.getArticlesList().stream().anyMatch(orderedArticles -> !orderedArticles.getArticlestatus().equals(ArticleStatus.PROCESSED)))
             {
-                throw new InvalidArgumentsException();
+                return Optional.of(order);
             }
         }
         if(status.equals(OrderStatus.CANCELED))

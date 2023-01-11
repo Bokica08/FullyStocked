@@ -1,6 +1,7 @@
 package com.bazi.fullystocked.Services.Implementations;
 
 import com.bazi.fullystocked.Models.Enumerations.ArticleStatus;
+import com.bazi.fullystocked.Models.Enumerations.OrderStatus;
 import com.bazi.fullystocked.Models.Exceptions.InvalidArgumentsException;
 import com.bazi.fullystocked.Models.OrderedArticles;
 import com.bazi.fullystocked.Models.SqlViews.OrderedArticlesReport;
@@ -32,6 +33,10 @@ public class OrderedArticlesServiceImpl implements OrderedArticlesService {
     @Transactional
     public Optional<OrderedArticles> update(Integer oarticleid, int price, int quantity) {
         OrderedArticles orderedArticles=orderedArticlesRepository.findById(oarticleid).orElseThrow(InvalidArgumentsException::new);
+        if(!orderedArticles.getOrder().getStatus().equals(OrderStatus.SENT))
+        {
+            throw new InvalidArgumentsException();
+        }
         if(price<=0 || quantity<=0)
         {
             throw new InvalidArgumentsException();
