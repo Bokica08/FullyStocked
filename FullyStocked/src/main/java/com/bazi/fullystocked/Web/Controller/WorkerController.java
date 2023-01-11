@@ -69,11 +69,11 @@ public class WorkerController {
         try
         {
             Workers u= (Workers) request.getSession().getAttribute("user");
-            if(storedArticlesService.findById(articleId).isEmpty())
+            if(orderedArticlesService.findById(articleId).isEmpty())
             {
                 return "redirect:/worker/deliveredArticles";
             }
-            if(!storedArticlesService.findById(articleId).get().getLocationid().equals(u.getLocation().getLocationid()))
+            if(!orderedArticlesService.findById(articleId).get().getLocationid().equals(u.getLocation().getLocationid()))
             {
                 return "redirect:/login";
             }
