@@ -2,6 +2,7 @@ package com.bazi.fullystocked.Services;
 
 import com.bazi.fullystocked.Models.Articles;
 import com.bazi.fullystocked.Models.Categories;
+import com.bazi.fullystocked.Models.DTO.ArticleAnalysisDTO;
 import com.bazi.fullystocked.Models.SqlViews.ArticlesAtLocationReport;
 import com.bazi.fullystocked.Models.SqlViews.SupplierSuppliesArticleReport;
 import java.util.*;
@@ -19,5 +20,6 @@ public interface ArticlesService {
     List<SupplierSuppliesArticleReport> findAllBySupplier(Integer id);
 
     List<ArticlesAtLocationReport> findAvailabilityAtAllLocations(Integer id);
+    List<ArticleAnalysisDTO> getArticleAnalysis();
 
 }
