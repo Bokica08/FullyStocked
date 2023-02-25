@@ -109,7 +109,7 @@ public class ArticlesServiceImpl implements ArticlesService {
        ) q1 on q1.articleid=a.articleid and q1.locationid=l.locationid
        left join (
         select articleid, locationid, coalesce(sum(quantity), 0) as incoming from project.orderedarticles o
-        where o.articlestatus='Ordered' or o.articlestatus='Delivered'
+        where o.articlestatus='ORDERED' or o.articlestatus='DELIVERED'
         group by o.articleid, o.locationid
        ) q2 on q2.articleid=a.articleid and q2.locationid=l.locationid
        left join (
