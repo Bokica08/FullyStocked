@@ -43,6 +43,7 @@ create table articles(
 	articleName varchar(100) not null,
 	imageURL varchar(200),
 	maxQuantityPerLocation integer not null
+	constraint ck_maxquantity_gt_0 check (maxQuantityPerLocation>0)
 
 );
 
