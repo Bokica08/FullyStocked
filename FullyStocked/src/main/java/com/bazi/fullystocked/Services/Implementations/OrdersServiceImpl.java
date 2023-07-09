@@ -163,6 +163,7 @@ public class OrdersServiceImpl implements OrdersService {
             {
                 throw new InvalidArgumentsException();
             }
+            order.setDatedelivered(LocalDateTime.now());
             order.getArticlesList().forEach(orderedArticles -> orderedArticles.setArticlestatus(ArticleStatus.DELIVERED));
         }
         if(status.equals(OrderStatus.PROCESSED))

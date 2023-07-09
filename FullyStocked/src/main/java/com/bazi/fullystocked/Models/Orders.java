@@ -27,6 +27,7 @@ public class Orders {
     @NotNull(message = "Order must have creation date")
     private LocalDateTime datecreated;
     private LocalDateTime dateapproved;
+    private LocalDateTime datedelivered;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderPriority priority;

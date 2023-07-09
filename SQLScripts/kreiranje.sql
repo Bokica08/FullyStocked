@@ -128,6 +128,7 @@ create table orders(
 	managerRemark varchar(400),
 	dateCreated timestamp default now(),
 	dateApproved timestamp,
+	dateDelivered timestamp,
 	priority varchar(50) not null,
 	managerUserId integer not null,
 	supplierUserId integer not null,
@@ -244,3 +245,15 @@ create table supplier_supplies_category(
 	constraint fk_supplier_category_category foreign key (categoryId) references categories(categoryId)
 
 );
+
+-------------------------
+
+alter table question_availability_for_storedarticle add constraint pk_question_availability_for_storedarticle primary key (questionId, sArticleId);
+
+-------------------------
+
+alter table article_belongs_to_category add constraint pk_article_belongs_to_category primary key (articleId, categoryId);
+
+-------------------------
+
+alter table supplier_supplies_category add constraint pk_supplier_supplies_category primary key (userId, categoryId);
